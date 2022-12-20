@@ -44,17 +44,17 @@ namespace IoTFileUpload
 
 				var blockBlobClient = new BlockBlobClient(uploadUri);
 
-				//var storageAccountName = "invendabsstrahinja";
-				//var containerName = "iot-test";
+				//var storageAccountName = "";
+				//var containerName = "";
 				//var blobName = $"5908764a8e382107d44e8e25_BOX0000311/{fileName}";
 				//var blobEndpoint = new Uri($"https://{storageAccountName}.blob.core.windows.net");
 
 				// works
-				//var bsConnectionString = "DefaultEndpointsProtocol=https;AccountName=invendabsstrahinja;AccountKey=JMaxHetABZXh3amIR/rp/bdahig9XjTzy9hzsXk+VDeiYwFimH5r9HoVSial5n/1yVBHWHdAbCDBZdiq2qtj4g==;EndpointSuffix=core.windows.net";
-				//var blobClient = new BlobClient(bsConnectionString, containerName, $"5908764a8e382107d44e8e25_BOX0000311/{fileName}");
+				//var bsConnectionString = "";
+				//var blobClient = new BlobClient(bsConnectionString, containerName, blobName);
 
 				// works
-				//var key = "JMaxHetABZXh3amIR/rp/bdahig9XjTzy9hzsXk+VDeiYwFimH5r9HoVSial5n/1yVBHWHdAbCDBZdiq2qtj4g==";
+				//var key = "";
 				//var sharedKeyCred = new StorageSharedKeyCredential(storageAccountName, key);
 				//var blobClient = new BlobClient(blobEndpoint, sharedKeyCred);
 
