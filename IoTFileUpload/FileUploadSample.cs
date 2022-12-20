@@ -25,7 +25,7 @@ namespace IoTFileUpload
 
 			var fileUploadSasUriRequest = new FileUploadSasUriRequest
 			{
-				BlobName = fileName
+				BlobName = $"synccontainer/{fileName}"
 			};
 
 			// Note: GetFileUploadSasUriAsync and CompleteFileUploadAsync will use HTTPS as protocol
@@ -35,6 +35,7 @@ namespace IoTFileUpload
 			FileUploadSasUriResponse sasUri = await _deviceClient.GetFileUploadSasUriAsync(fileUploadSasUriRequest);
 			Uri uploadUri = sasUri.GetBlobUri();
 
+
 			Console.WriteLine($"Successfully got SAS URI ({uploadUri}) from IoT Hub");
 
 			try
@@ -42,6 +43,45 @@ namespace IoTFileUpload
 				Console.WriteLine($"Uploading file {fileName} using the Azure Storage SDK and the retrieved SAS URI for authentication");
 
 				var blockBlobClient = new BlockBlobClient(uploadUri);
+
+				//var storageAccountName = "invendabsstrahinja";
+				//var containerName = "iot-test";
+				//var blobName = $"5908764a8e382107d44e8e25_BOX0000311/{fileName}";
+				//var blobEndpoint = new Uri($"https://{storageAccountName}.blob.core.windows.net");
+
+				// works
+				//var bsConnectionString = "DefaultEndpointsProtocol=https;AccountName=invendabsstrahinja;AccountKey=JMaxHetABZXh3amIR/rp/bdahig9XjTzy9hzsXk+VDeiYwFimH5r9HoVSial5n/1yVBHWHdAbCDBZdiq2qtj4g==;EndpointSuffix=core.windows.net";
+				//var blobClient = new BlobClient(bsConnectionString, containerName, $"5908764a8e382107d44e8e25_BOX0000311/{fileName}");
+
+				// works
+				//var key = "JMaxHetABZXh3amIR/rp/bdahig9XjTzy9hzsXk+VDeiYwFimH5r9HoVSial5n/1yVBHWHdAbCDBZdiq2qtj4g==";
+				//var sharedKeyCred = new StorageSharedKeyCredential(storageAccountName, key);
+				//var blobClient = new BlobClient(blobEndpoint, sharedKeyCred);
+
+				// used with both examples
+				//var sas = blobClient.GenerateSasUri(BlobSasPermissions.All, DateTimeOffset.Now.AddHours(1));
+
+
+				//var blobClient = new BlobServiceClient(blobEndpoint, new DefaultAzureCredential());
+				//UserDelegationKey key = await blobClient.GetUserDelegationKeyAsync(DateTimeOffset.UtcNow,
+				//	DateTimeOffset.UtcNow.AddDays(7));
+				//var sasBuilder = new BlobSasBuilder()
+				//{
+				//	BlobContainerName = containerName,
+				//	BlobName = blobName,
+				//	Resource = "b",
+				//	ExpiresOn = DateTimeOffset.UtcNow.AddHours(1)
+				//};
+				//sasBuilder.SetPermissions(BlobSasPermissions.All);
+				//string sasToken = sasBuilder.ToSasQueryParameters(key, storageAccountName).ToString();
+				//UriBuilder fullUri = new UriBuilder()
+				//{
+				//	Scheme = "https",
+				//	Host = blobEndpoint.OriginalString,
+				//	Path = string.Format("{0}/{1}", containerName, blobName),
+				//	Query = sasToken
+				//};
+
 				await blockBlobClient.UploadAsync(fileStreamSource, new BlobUploadOptions());
 			}
 			catch (Exception ex)
