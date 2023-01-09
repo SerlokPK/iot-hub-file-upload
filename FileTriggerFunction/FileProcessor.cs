@@ -8,7 +8,7 @@ namespace FileTriggerFunction
     public class FileProcessor
     {
         [FunctionName(nameof(FileProcessor))]
-        public async Task Run([BlobTrigger("iot-test/{deviceId}/synccontainer/{name}", Connection = "BlobStorageConnectionString")]
+        public async Task Run([BlobTrigger("synccontainer/{deviceId}/usage/{name}", Connection = "BlobStorageConnectionString")]
 	        Stream blob,
 	        string deviceId,
             string name,
